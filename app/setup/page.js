@@ -29,17 +29,17 @@ function SetupContent() {
 
   return (
     <>
-      <h1 className="text-2xl font-bold text-center mb-6">Имена игроков</h1>
+      <h1 className="text-3xl font-bold text-center mb-8">Имена игроков</h1>
       
-      <div className="space-y-3 max-w-sm mx-auto">
+      <div className="space-y-4 max-w-md mx-auto">
         {names.map((name, index) => (
-          <div key={index} className="bg-white rounded-xl p-4">
-            <div className="text-gray-500 text-sm mb-1">Игрок {index + 1}</div>
+          <div key={index} className="bg-white rounded-xl p-5">
+            <div className="text-gray-500 text-base mb-2">Игрок {index + 1}</div>
             <input
               type="text"
               value={name}
               onChange={(e) => updateName(index, e.target.value)}
-              className="w-full text-lg font-semibold border-b border-gray-300 focus:border-blue-500 outline-none py-1"
+              className="w-full text-xl font-semibold border-b-2 border-gray-300 focus:border-blue-500 outline-none py-2"
               placeholder="Введите имя"
             />
           </div>
@@ -48,7 +48,7 @@ function SetupContent() {
       
       <button 
         onClick={handleContinue}
-        className="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white px-8 py-3 rounded-xl text-lg font-semibold w-auto min-w-[200px]"
+        className="fixed bottom-8 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white px-8 py-4 rounded-xl text-xl font-semibold w-auto min-w-[220px] active:bg-blue-700 transition"
       >
         ПРОДОЛЖИТЬ
       </button>
@@ -67,11 +67,11 @@ export default function Setup() {
   if (!isClient) {
     return (
       <div className="min-h-screen p-4">
-        <h1 className="text-2xl font-bold text-center mb-6">Имена игроков</h1>
-        <div className="space-y-3 max-w-sm mx-auto">
-          <div className="bg-white rounded-xl p-4">
-            <div className="text-gray-500 text-sm mb-1">Загрузка...</div>
-            <div className="w-full text-lg font-semibold">Загрузка...</div>
+        <h1 className="text-3xl font-bold text-center mb-8">Имена игроков</h1>
+        <div className="space-y-4 max-w-md mx-auto">
+          <div className="bg-white rounded-xl p-5">
+            <div className="text-gray-500 text-base mb-2">Загрузка...</div>
+            <div className="w-full text-xl font-semibold">Загрузка...</div>
           </div>
         </div>
       </div>
@@ -79,7 +79,7 @@ export default function Setup() {
   }
 
   return (
-    <div className="min-h-screen p-4">
+    <div className="min-h-screen p-4 pb-28">
       <Suspense fallback={<div className="text-center">Загрузка...</div>}>
         <SetupContent />
       </Suspense>
