@@ -49,18 +49,18 @@ export default function DicePage() {
 
   if (!isClient || !currentPlayer) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="dice-container">
         <div className="text-center text-xl">Загрузка...</div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4">
-      <h2 className="text-3xl font-bold mb-12 text-center">{currentPlayer.name}</h2>
+    <div className="dice-container">
+      <h2 className="dice-player-name">{currentPlayer.name}</h2>
       
-      <div className="bg-white rounded-3xl p-10 w-full max-w-md text-center">
-        <div className={`dice-value text-9xl font-bold mb-10 ${rolling ? 'animate-pulse' : ''}`}>
+      <div className="dice-card">
+        <div className={`dice-value ${rolling ? 'animate-pulse' : ''}`}>
           {result !== null ? result : '?'}
         </div>
         
@@ -68,14 +68,14 @@ export default function DicePage() {
           <button 
             onClick={roll} 
             disabled={rolling}
-            className="w-full bg-blue-600 text-white py-5 rounded-2xl text-2xl font-semibold disabled:opacity-50 active:bg-blue-700 transition"
+            className="dice-button"
           >
-            {rolling ? 'БРОСАЕМ...' : '<Бросить кубик!>'}
+            {rolling ? 'БРОСАЕМ...' : 'Бросить кубик!'}
           </button>
         ) : (
           <button 
             onClick={handleContinue}
-            className="w-full bg-green-600 text-white py-5 rounded-2xl text-2xl font-semibold active:bg-green-700 transition"
+            className="dice-continue-btn"
           >
             ПРОДОЛЖИТЬ
           </button>

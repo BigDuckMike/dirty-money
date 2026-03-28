@@ -4,7 +4,6 @@ import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useGameState } from '../gameStore';
 
-// Внутренний компонент, который использует useSearchParams
 function SetupContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -29,17 +28,17 @@ function SetupContent() {
 
   return (
     <>
-      <h1 className="text-3xl font-bold text-center mb-8">Имена игроков</h1>
+      <h1 className="setup-title">Имена игроков</h1>
       
       <div className="space-y-4 max-w-md mx-auto">
         {names.map((name, index) => (
-          <div key={index} className="bg-white rounded-xl p-5">
-            <div className="text-gray-500 text-base mb-2">Игрок {index + 1}</div>
+          <div key={index} className="player-name-card">
+            <div className="player-name-label">Игрок {index + 1}</div>
             <input
               type="text"
               value={name}
               onChange={(e) => updateName(index, e.target.value)}
-              className="w-full text-xl font-semibold border-b-2 border-gray-300 focus:border-blue-500 outline-none py-2"
+              className="player-name-input"
               placeholder="Введите имя"
             />
           </div>
@@ -48,7 +47,7 @@ function SetupContent() {
       
       <button 
         onClick={handleContinue}
-        className="fixed bottom-8 left-1/2 transform -translate-x-1/2 bg-blue-600 text-white px-8 py-4 rounded-xl text-xl font-semibold w-auto min-w-[220px] active:bg-blue-700 transition"
+        className="continue-btn"
       >
         ПРОДОЛЖИТЬ
       </button>
@@ -56,7 +55,6 @@ function SetupContent() {
   );
 }
 
-// Основной компонент с Suspense
 export default function Setup() {
   const [isClient, setIsClient] = useState(false);
 
@@ -67,11 +65,10 @@ export default function Setup() {
   if (!isClient) {
     return (
       <div className="min-h-screen p-4">
-        <h1 className="text-3xl font-bold text-center mb-8">Имена игроков</h1>
+        <h1 className="setup-title">Имена игроков</h1>
         <div className="space-y-4 max-w-md mx-auto">
-          <div className="bg-white rounded-xl p-5">
-            <div className="text-gray-500 text-base mb-2">Загрузка...</div>
-            <div className="w-full text-xl font-semibold">Загрузка...</div>
+          <div className="player-name-card">
+            <div className="player-name-label">Загрузка...</div>
           </div>
         </div>
       </div>

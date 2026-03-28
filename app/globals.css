@@ -456,3 +456,143 @@ body {
   background: #e5e7eb;
   border: none;
 }
+
+/* ========== ДОПОЛНИТЕЛЬНЫЕ СТИЛИ ДЛЯ ВСЕХ СТРАНИЦ ========== */
+
+/* Контейнеры */
+.game-container {
+  min-height: 100vh;
+  padding: 1rem;
+  padding-bottom: 6rem;
+}
+
+/* Шапка игрока */
+.player-header {
+  background: white;
+  border-radius: 1rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.player-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.player-laundered {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-top: 0.25rem;
+}
+
+/* Курс биткоина */
+.bitcoin-rate {
+  background: white;
+  border-radius: 1rem;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.bitcoin-rate-label {
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.bitcoin-rate-value {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0.5rem 0;
+}
+
+.bitcoin-rate-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.bitcoin-rate-buttons button {
+  background: #e5e7eb;
+  border: none;
+  padding: 0.5rem 1.5rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+/* Счетчики */
+.counter {
+  background: white;
+  border-radius: 1rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.counter-label {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.counter-buttons {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.counter-buttons button {
+  background: #e5e7eb;
+  border: none;
+  padding: 0.5rem 1.5rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+/* Кнопки действий */
+.action-button {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+
+.action-button-primary {
+  background: #2563eb;
+  color: white;
+}
+
+.action-button-danger {
+  background: #ef4444;
+  color: white;
+}
+
+.action-button-success {
+  background: #16a34a;
+  color: white;
+}
+
+.action-button-gray {
+  background: #6b7280;
+  color: white;
+}
+
+/* Группа кнопок */
+.button-group {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.button-group .action-button {
+  margin-top: 0;
+  flex: 1;
+}
