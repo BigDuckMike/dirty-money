@@ -20,7 +20,6 @@ export default function DicePage() {
     ? gameState.players[gameState.currentPlayerId] 
     : null;
 
-  // Если нет текущего игрока, перенаправляем на главную
   useEffect(() => {
     if (isClient && (!gameState.gameStarted || !currentPlayer)) {
       router.push('/');
@@ -51,17 +50,17 @@ export default function DicePage() {
   if (!isClient || !currentPlayer) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">Загрузка...</div>
+        <div className="text-center text-xl">Загрузка...</div>
       </div>
     );
   }
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-4">
-      <h2 className="text-2xl font-bold mb-8">{currentPlayer.name}</h2>
+      <h2 className="text-3xl font-bold mb-12 text-center">{currentPlayer.name}</h2>
       
-      <div className="bg-white rounded-2xl p-8 w-full max-w-sm text-center">
-        <div className={`dice-value text-8xl font-bold mb-6 ${rolling ? 'animate-pulse' : ''}`}>
+      <div className="bg-white rounded-3xl p-10 w-full max-w-md text-center">
+        <div className={`dice-value text-9xl font-bold mb-10 ${rolling ? 'animate-pulse' : ''}`}>
           {result !== null ? result : '?'}
         </div>
         
@@ -69,14 +68,14 @@ export default function DicePage() {
           <button 
             onClick={roll} 
             disabled={rolling}
-            className="w-full bg-blue-600 text-white py-4 rounded-xl text-xl font-semibold disabled:opacity-50"
+            className="w-full bg-blue-600 text-white py-5 rounded-2xl text-2xl font-semibold disabled:opacity-50 active:bg-blue-700 transition"
           >
-            {rolling ? 'БРОСАЕМ...' : 'Бросить Кубик'}
+            {rolling ? 'БРОСАЕМ...' : 'ПРОСИТЬ КУБИК'}
           </button>
         ) : (
           <button 
             onClick={handleContinue}
-            className="w-full bg-green-600 text-white py-4 rounded-xl text-xl font-semibold"
+            className="w-full bg-green-600 text-white py-5 rounded-2xl text-2xl font-semibold active:bg-green-700 transition"
           >
             ПРОДОЛЖИТЬ
           </button>

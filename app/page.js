@@ -20,15 +20,15 @@ export default function Home() {
   if (!isClient) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center p-4">
-        <h1 className="text-3xl font-bold mb-8">ГРЯЗНЫЕ ДЕНЬГИ</h1>
-        <div className="bg-white rounded-xl p-6 w-full max-w-sm text-center">
-          <div className="text-gray-500 mb-2">Количество игроков</div>
-          <div className="flex items-center justify-center gap-6 mb-6">
-            <button className="text-3xl font-bold w-12 h-12 bg-gray-200 rounded-full opacity-50">-</button>
-            <span className="text-4xl font-bold">2</span>
-            <button className="text-3xl font-bold w-12 h-12 bg-gray-200 rounded-full opacity-50">+</button>
+        <h1 className="text-4xl font-bold mb-12 text-center">ГРЯЗНЫЕ ДЕНЬГИ</h1>
+        <div className="bg-white rounded-2xl p-8 w-full max-w-md text-center">
+          <div className="text-gray-500 text-lg mb-4">Количество игроков</div>
+          <div className="flex items-center justify-center gap-8 mb-8">
+            <button className="text-5xl font-bold w-20 h-20 bg-gray-200 rounded-full opacity-50">-</button>
+            <span className="text-6xl font-bold">2</span>
+            <button className="text-5xl font-bold w-20 h-20 bg-gray-200 rounded-full opacity-50">+</button>
           </div>
-          <button className="w-full bg-blue-600 text-white py-3 rounded-xl text-lg font-semibold opacity-50">
+          <button className="w-full bg-blue-600 text-white py-5 rounded-2xl text-2xl font-semibold opacity-50">
             НАЧАТЬ ИГРУ
           </button>
         </div>
@@ -38,21 +38,21 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-4">
-      <h1 className="text-3xl font-bold mb-8">ГРЯЗНЫЕ ДЕНЬГИ</h1>
+      <h1 className="text-4xl font-bold mb-12 text-center">ГРЯЗНЫЕ ДЕНЬГИ</h1>
       
-      <div className="bg-white rounded-xl p-6 w-full max-w-sm text-center">
-        <div className="text-gray-500 mb-2">Количество игроков</div>
-        <div className="flex items-center justify-center gap-6 mb-6">
+      <div className="bg-white rounded-2xl p-8 w-full max-w-md text-center">
+        <div className="text-gray-500 text-lg mb-4">Количество игроков</div>
+        <div className="flex items-center justify-center gap-8 mb-8">
           <button 
             onClick={() => setPlayerCount(Math.max(2, playerCount - 1))}
-            className="text-3xl font-bold w-12 h-12 bg-gray-200 rounded-full"
+            className="text-5xl font-bold w-20 h-20 bg-gray-200 rounded-full active:bg-gray-300 transition"
           >
             -
           </button>
-          <span className="text-4xl font-bold">{playerCount}</span>
+          <span className="text-6xl font-bold">{playerCount}</span>
           <button 
             onClick={() => setPlayerCount(Math.min(4, playerCount + 1))}
-            className="text-3xl font-bold w-12 h-12 bg-gray-200 rounded-full"
+            className="text-5xl font-bold w-20 h-20 bg-gray-200 rounded-full active:bg-gray-300 transition"
           >
             +
           </button>
@@ -60,7 +60,7 @@ export default function Home() {
         
         <button 
           onClick={startGame}
-          className="w-full bg-blue-600 text-white py-3 rounded-xl text-lg font-semibold"
+          className="w-full bg-blue-600 text-white py-5 rounded-2xl text-2xl font-semibold active:bg-blue-700 transition"
         >
           НАЧАТЬ ИГРУ
         </button>
