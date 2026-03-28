@@ -1,19 +1,17 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useGameState } from '../gameStore';
 
-export default function Setup() {
-  const [isClient, setIsClient] = useState(false);
+// Внутренний компонент, который использует useSearchParams
+function SetupContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { initGame } = useGameState();
-  
   const [names, setNames] = useState([]);
 
   useEffect(() => {
-    setIsClient(true);
     const count = parseInt(searchParams?.get('count') || '2');
     setNames(Array(count).fill('').map((_, i) => `Игрок ${i + 1}`));
   }, [searchParams]);
@@ -29,22 +27,8 @@ export default function Setup() {
     router.push('/dice');
   };
 
-  // Пока не загрузился клиент, показываем заглушку
-  if (!isClient) {
-    return (
-      <div className="min-h-screen p-4">
-        <h1 className="text-2xl font-bold text-center mb-6">Имена игроков</h1>
-        <div className="space-y-3 max-w-sm mx-auto">
-          <div className="bg-white rounded-xl p-4">
-            <div className="text-gray-500 text-sm mb-1">Загрузка...</div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="min-h-screen p-4">
+    <>
       <h1 className="text-2xl font-bold text-center mb-6">Имена игроков</h1>
       
       <div className="space-y-3 max-w-sm mx-auto">
@@ -68,6 +52,37 @@ export default function Setup() {
       >
         ПРОДОЛЖИТЬ
       </button>
+    </>
+  );
+}
+
+// Основной компонент с Suspense
+export default function Setup() {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) {
+    return (
+      <div className="min-h-screen p-4">
+        <h1 className="text-2xl font-bold text-center mb-6">Имена игроков</h1>
+        <div className="space-y-3 max-w-sm mx-auto">
+          <div className="bg-white rounded-xl p-4">
+            <div className="text-gray-500 text-sm mb-1">Загрузка...</div>
+            <div className="w-full text-lg font-semibold">Загрузка...</div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen p-4">
+      <Suspense fallback={<div className="text-center">Загрузка...</div>}>
+        <SetupContent />
+      </Suspense>
     </div>
   );
 }
