@@ -1,66 +1,70 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import Link from 'next/link';
-import { useGameState } from './gameStore';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function Home() {
+  const [playerCount, setPlayerCount] = useState(2);
   const [isClient, setIsClient] = useState(false);
-  const { gameState, updateBitcoinRate, resetGame } = useGameState();
+  const router = useRouter();
 
   useEffect(() => {
     setIsClient(true);
   }, []);
 
+  const startGame = () => {
+    router.push(`/setup?count=${playerCount}`);
+  };
+
+  // Пока не загрузился клиент, показываем заглушку
   if (!isClient) {
     return (
-      <div>
-        <div className="bitcoin-rate">
-          <div className="text-gray-500 text-sm">КУРС БИТКОИНА</div>
-          <div className="bitcoin-rate-value">200 USD</div>
-          <div className="counter-buttons" style={{ justifyContent: 'center' }}>
-            <button disabled>-100</button>
-            <button disabled>+100</button>
+      <div className="min-h-screen flex flex-col items-center justify-center p-4">
+        <h1 className="text-3xl font-bold mb-8">ГРЯЗНЫЕ ДЕНЬГИ</h1>
+        <div className="bg-white rounded-xl p-6 w-full max-w-sm text-center">
+          <div className="text-gray-500 mb-2">Количество игроков</div>
+          <div className="flex items-center justify-center gap-6 mb-6">
+            <button className="text-3xl font-bold w-12 h-12 bg-gray-200 rounded-full opacity-50">-</button>
+            <span className="text-4xl font-bold">2</span>
+            <button className="text-3xl font-bold w-12 h-12 bg-gray-200 rounded-full opacity-50">+</button>
           </div>
+          <button className="w-full bg-blue-600 text-white py-3 rounded-xl text-lg font-semibold opacity-50">
+            НАЧАТЬ ИГРУ
+          </button>
         </div>
-        <div className="grid grid-cols-2 gap-3 mb-6">
-          {[1, 2, 3, 4].map(num => (
-            <button key={num} className="player-button w-full opacity-50" disabled>
-              Игрок {num}
-            </button>
-          ))}
-        </div>
-        <button className="new-game-btn opacity-50" disabled>
-          НОВАЯ ИГРА
-        </button>
       </div>
     );
   }
 
   return (
-    <div>
-      <div className="bitcoin-rate">
-        <div className="text-gray-500 text-sm">КУРС БИТКОИНА</div>
-        <div className="bitcoin-rate-value">{gameState.bitcoinRate} USD</div>
-        <div className="counter-buttons" style={{ justifyContent: 'center' }}>
-          <button onClick={() => updateBitcoinRate(-100)}>-100</button>
-          <button onClick={() => updateBitcoinRate(100)}>+100</button>
+    <div className="min-h-screen flex flex-col items-center justify-center p-4">
+      <h1 className="text-3xl font-bold mb-8">ГРЯЗНЫЕ ДЕНЬГИ</h1>
+      
+      <div className="bg-white rounded-xl p-6 w-full max-w-sm text-center">
+        <div className="text-gray-500 mb-2">Количество игроков</div>
+        <div className="flex items-center justify-center gap-6 mb-6">
+          <button 
+            onClick={() => setPlayerCount(Math.max(2, playerCount - 1))}
+            className="text-3xl font-bold w-12 h-12 bg-gray-200 rounded-full"
+          >
+            -
+          </button>
+          <span className="text-4xl font-bold">{playerCount}</span>
+          <button 
+            onClick={() => setPlayerCount(Math.min(4, playerCount + 1))}
+            className="text-3xl font-bold w-12 h-12 bg-gray-200 rounded-full"
+          >
+            +
+          </button>
         </div>
+        
+        <button 
+          onClick={startGame}
+          className="w-full bg-blue-600 text-white py-3 rounded-xl text-lg font-semibold"
+        >
+          НАЧАТЬ ИГРУ
+        </button>
       </div>
-
-      <div className="grid grid-cols-2 gap-3 mb-6">
-        {[1, 2, 3, 4].map(num => (
-          <Link key={num} href={`/player/${num}`}>
-            <button className="player-button w-full">
-              {gameState.players[num]?.name || `Игрок ${num}`}
-            </button>
-          </Link>
-        ))}
-      </div>
-
-      <button onClick={resetGame} className="new-game-btn">
-        НОВАЯ ИГРА
-      </button>
     </div>
   );
 }
