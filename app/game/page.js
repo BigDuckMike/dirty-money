@@ -84,15 +84,16 @@ export default function GamePage() {
   };
 
   const handleSurrender = () => {
-    if (confirm(`${currentPlayer.name}, вы уверены, что хотите сдаться?`)) {
-      surrender(gameState.currentPlayerId);
+  if (confirm(`${currentPlayer.name}, вы уверены, что хотите сдаться?`)) {
+    const wasCurrentPlayer = gameState.currentPlayerId === gameState.currentPlayerId;
+    surrender(gameState.currentPlayerId);
+    
+    // Если сдался текущий игрок, переходим к кубику следующего
+    if (wasCurrentPlayer) {
+      router.push('/dice');
     }
-  };
-
-  const handleEndTurn = () => {
-    endTurn();
-    router.push('/dice');
-  };
+  }
+};
 
   return (
     <div className="min-h-screen p-4 pb-24">

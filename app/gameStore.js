@@ -297,43 +297,49 @@ export function useGameState() {
   };
 
   const surrender = (playerId) => {
-    const player = state.players[playerId];
-    if (!player) return;
-    
-    // Помечаем игрока неактивным
-    const newPlayers = { 
-      ...state.players, 
-      [playerId]: { ...player, active: false } 
-    };
-    
-    // Удаляем из порядка ходов
-    const newOrder = state.playerOrder.filter(id => id !== playerId);
-    
-    // Проверка на победителя (если остался 1 игрок)
-    if (newOrder.length === 1) {
-      setGlobalState({
-        ...state,
-        players: newPlayers,
-        playerOrder: newOrder,
-        winner: newOrder[0]
-      });
-      return;
-    }
-    
-    // Корректируем текущего игрока
-    let newCurrentId = state.currentPlayerId;
-    if (playerId === state.currentPlayerId) {
-      const currentIndex = state.playerOrder.findIndex(id => id === playerId);
-      newCurrentId = state.playerOrder[(currentIndex + 1) % state.playerOrder.length];
-    }
-    
+  const player = state.players[playerId];
+  if (!player) return;
+  
+  // Помечаем игрока неактивным
+  const newPlayers = { 
+    ...state.players, 
+    [playerId]: { ...player, active: false } 
+  };
+  
+  // Удаляем из порядка ходов
+  const newOrder = state.playerOrder.filter(id => id !== playerId);
+  
+  // Проверка на победителя (если остался 1 игрок)
+  if (newOrder.length === 1) {
     setGlobalState({
       ...state,
       players: newPlayers,
       playerOrder: newOrder,
-      currentPlayerId: newCurrentId
+      winner: newOrder[0]
     });
-  };
+    return;
+  }
+  
+  // Определяем следующего игрока
+  let nextPlayerId;
+  const currentIndex = state.playerOrder.findIndex(id => id === playerId);
+  
+  // Если сдаётся текущий игрок
+  if (playerId === state.currentPlayerId) {
+    // Берём следующего по кругу
+    nextPlayerId = state.playerOrder[(currentIndex + 1) % state.playerOrder.length];
+  } else {
+    // Если сдаётся не текущий игрок, текущий остаётся
+    nextPlayerId = state.currentPlayerId;
+  }
+  
+  setGlobalState({
+    ...state,
+    players: newPlayers,
+    playerOrder: newOrder,
+    currentPlayerId: nextPlayerId
+  });
+};
 
   const resetGame = () => {
     if (confirm('Начать новую игру? Все текущие данные будут потеряны.')) {
