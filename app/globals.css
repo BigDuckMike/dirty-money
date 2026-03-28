@@ -1,0 +1,153 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background: #f5f5f5;
+}
+
+.counter {
+  background: white;
+  border-radius: 1rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.counter-label {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.counter-buttons {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.counter-buttons button {
+  background: #e5e7eb;
+  border: none;
+  padding: 0.5rem 1.5rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.player-button {
+  background: white;
+  border: none;
+  padding: 1.5rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+  border-radius: 1rem;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  transition: transform 0.1s;
+}
+
+.player-button:active {
+  transform: scale(0.98);
+}
+
+.new-game-btn {
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 1rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-radius: 1rem;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 1.5rem;
+}
+
+.back-btn {
+  background: #e5e7eb;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  border-radius: 2rem;
+  cursor: pointer;
+  margin-bottom: 1.5rem;
+  display: inline-block;
+}
+
+.bitcoin-rate {
+  background: white;
+  border-radius: 1rem;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.bitcoin-rate-value {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0.5rem 0;
+}
+
+/* Звёзды */
+.stars-container {
+  background: white;
+  border-radius: 1rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.stars-label {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+}
+
+.stars-row {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 0.75rem;
+}
+
+.star {
+  font-size: 2rem;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+
+.star:active {
+  transform: scale(0.9);
+}
+
+.star-red {
+  color: #ef4444;
+}
+
+.star-grey {
+  color: #d1d5db;
+}
+
+.stars-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.stars-buttons button {
+  background: #e5e7eb;
+  border: none;
+  padding: 0.4rem 1.2rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.stars-count {
+  font-size: 0.9rem;
+  color: #6b7280;
+}
