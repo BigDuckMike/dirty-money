@@ -24,14 +24,24 @@ function Counter({ label, value, step, onUpdate, unit = '', extraInfo = '' }) {
 
 export default function GamePage() {
   const [isClient, setIsClient] = useState(false);
-  const router = useRouter();
-  const { gameState, updateBitcoinRate, updatePlayer, launderMoney, buyBitcoin, sellBitcoin, rob, endTurn, surrender } = useGameState();
   const [showRobberyModal, setShowRobberyModal] = useState(false);
-  
+  const router = useRouter();
+  const { 
+    gameState, 
+    updateBitcoinRate, 
+    updatePlayer, 
+    launderMoney, 
+    buyBitcoin, 
+    sellBitcoin, 
+    rob, 
+    endTurn, 
+    surrender 
+  } = useGameState();
+
   useEffect(() => {
     setIsClient(true);
   }, []);
-  
+
   const currentPlayer = gameState.currentPlayerId ? gameState.players[gameState.currentPlayerId] : null;
   const bitcoinRate = gameState.bitcoinRate;
   const winner = gameState.winner;
@@ -42,8 +52,13 @@ export default function GamePage() {
     return <VictoryScreen winnerName={winnerName} />;
   }
 
+  // Пока не загрузился клиент или нет данных, показываем загрузку
   if (!isClient || !currentPlayer) {
-    return <div className="min-h-screen flex items-center justify-center">Загрузка...</div>;
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">Загрузка...</div>
+      </div>
+    );
   }
 
   const bitcoinValueUSD = (currentPlayer.bitcoin || 0) * bitcoinRate;

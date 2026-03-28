@@ -5,9 +5,9 @@ import { useRouter } from 'next/navigation';
 import { useGameState } from '../gameStore';
 
 export default function DicePage() {
+  const [isClient, setIsClient] = useState(false);
   const router = useRouter();
   const { gameState } = useGameState();
-  const [isClient, setIsClient] = useState(false);
   const [rolling, setRolling] = useState(false);
   const [result, setResult] = useState(null);
   const [showContinue, setShowContinue] = useState(false);
@@ -71,7 +71,7 @@ export default function DicePage() {
             disabled={rolling}
             className="w-full bg-blue-600 text-white py-4 rounded-xl text-xl font-semibold disabled:opacity-50"
           >
-            {rolling ? 'БРОСАЕМ...' : 'ПРОСИТЬ КУБИК'}
+            {rolling ? 'БРОСАЕМ...' : 'Бросить Кубик'}
           </button>
         ) : (
           <button 
