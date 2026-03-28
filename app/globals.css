@@ -596,3 +596,192 @@ body {
   margin-top: 0;
   flex: 1;
 }
+
+/* ========== ИГРОВОЙ ЭКРАН ========== */
+
+/* Большие кнопки действий */
+.action-button-large {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 1rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.1s, background 0.2s;
+}
+
+.action-button-large:active {
+  transform: scale(0.98);
+}
+
+.action-button-red {
+  background: #ef4444;
+  color: white;
+}
+
+.action-button-blue {
+  background: #2563eb;
+  color: white;
+}
+
+.action-button-gray {
+  background: #6b7280;
+  color: white;
+}
+
+/* Группа кнопок (ограбление, завершить ход, сдаться) */
+.game-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.game-actions-row {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.game-actions-row .action-button-large {
+  flex: 1;
+  margin-top: 0;
+}
+
+/* ========== МОДАЛЬНОЕ ОКНО ОГРАБЛЕНИЯ ========== */
+
+.modal-large {
+  background: white;
+  border-radius: 1.5rem;
+  padding: 1.5rem;
+  width: 90%;
+  max-width: 450px;
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+.modal-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.modal-subtitle {
+  font-size: 0.9rem;
+  color: #6b7280;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+/* Карточки игроков в модалке */
+.modal-player-card {
+  background: #f5f5f5;
+  border-radius: 1rem;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  border: 2px solid transparent;
+}
+
+.modal-player-card.selected {
+  background: #e0e7ff;
+  border-color: #3b82f6;
+}
+
+.modal-player-name {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.modal-player-money {
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+/* Управление суммами грабежа */
+.robbery-amount-control {
+  margin-bottom: 1.5rem;
+}
+
+.robbery-label {
+  display: block;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.amount-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.amount-btn {
+  width: 3rem;
+  height: 3rem;
+  background: #e5e7eb;
+  border: none;
+  border-radius: 9999px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.amount-btn:active {
+  background: #d1d5db;
+  transform: scale(0.95);
+}
+
+.amount-input {
+  flex: 1;
+  text-align: center;
+  padding: 0.75rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border: 1px solid #d1d5db;
+  border-radius: 0.75rem;
+  background: white;
+}
+
+.amount-max {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin-top: 0.25rem;
+  text-align: center;
+}
+
+/* Кнопки модалки */
+.modal-buttons-large {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.modal-btn {
+  flex: 1;
+  padding: 0.875rem;
+  border-radius: 0.875rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.modal-btn:active {
+  transform: scale(0.98);
+}
+
+.modal-btn-primary {
+  background: #ef4444;
+  color: white;
+}
+
+.modal-btn-secondary {
+  background: #e5e7eb;
+  color: #374151;
+}
