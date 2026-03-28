@@ -19,13 +19,58 @@ function Counter({ label, value, step, onUpdate, unit = '' }) {
   );
 }
 
+function EditableName({ name, onSave }) {
+  const [isEditing, setIsEditing] = useState(false);
+  const [tempName, setTempName] = useState(name);
+
+  const handleSave = () => {
+    if (tempName.trim()) {
+      onSave(tempName.trim());
+    }
+    setIsEditing(false);
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      handleSave();
+    }
+    if (e.key === 'Escape') {
+      setTempName(name);
+      setIsEditing(false);
+    }
+  };
+
+  if (isEditing) {
+    return (
+      <div className="editable-name editing">
+        <input
+          type="text"
+          value={tempName}
+          onChange={(e) => setTempName(e.target.value)}
+          onBlur={handleSave}
+          onKeyDown={handleKeyDown}
+          autoFocus
+          className="name-input"
+        />
+      </div>
+    );
+  }
+
+  return (
+    <div className="editable-name" onClick={() => setIsEditing(true)}>
+      <span className="name-display">{name}</span>
+      <span className="edit-icon">✎</span>
+    </div>
+  );
+}
+
 export default function PlayerPage() {
   const [isClient, setIsClient] = useState(false);
   const { id } = useParams();
   const router = useRouter();
   const playerId = parseInt(id);
   
-  const { gameState, updatePlayer } = useGameState();
+  const { gameState, updatePlayer, updatePlayerName } = useGameState();
   const playerData = gameState.players[playerId];
   const bitcoinRate = gameState.bitcoinRate;
 
@@ -37,33 +82,14 @@ export default function PlayerPage() {
     return <div className="text-center mt-10">Игрок не найден</div>;
   }
 
-  // Пока не загрузился клиент, показываем заглушку
   if (!isClient) {
     return (
       <div>
         <button className="back-btn opacity-50" disabled>← Назад</button>
-        <div className="counter">
-          <div className="counter-label">USD ГРЯЗНЫЕ: 3000</div>
-          <div className="counter-buttons">
-            <button disabled>-100</button>
-            <button disabled>+100</button>
-          </div>
-        </div>
-        <div className="counter">
-          <div className="counter-label">USD ЧИСТЫЕ: 0</div>
-          <div className="counter-buttons">
-            <button disabled>-100</button>
-            <button disabled>+100</button>
-          </div>
-        </div>
-        <div className="stars-container">
-          <div className="stars-label">ЗВЁЗДЫ ЗА РЕПУТАЦИЮ</div>
-          <div className="stars-row">
-            {[0, 1, 2, 3, 4].map((index) => (
-              <span key={index} className="star star-grey">★</span>
-            ))}
-          </div>
-        </div>
+        <div className="counter"><div className="counter-label">Имя: Игрок {playerId}</div></div>
+        <div className="counter"><div className="counter-label">USD ГРЯЗНЫЕ: 3000</div></div>
+        <div className="counter"><div className="counter-label">USD ЧИСТЫЕ: 0</div></div>
+        <div className="stars-container"><div className="stars-label">ЗВЁЗДЫ ЗА РЕПУТАЦИЮ</div></div>
       </div>
     );
   }
@@ -73,6 +99,14 @@ export default function PlayerPage() {
       <button onClick={() => router.push('/')} className="back-btn">
         ← Назад
       </button>
+
+      {/* Редактируемое имя */}
+      <div className="name-container">
+        <EditableName
+          name={playerData.name}
+          onSave={(newName) => updatePlayerName(playerId, newName)}
+        />
+      </div>
 
       <Counter
         label="USD ГРЯЗНЫЕ"

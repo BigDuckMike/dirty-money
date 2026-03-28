@@ -5,10 +5,10 @@ import { useState, useEffect } from 'react';
 const INITIAL_STATE = {
   bitcoinRate: 200,
   players: {
-    1: { dirty: 3000, clean: 0, bitcoin: 0, laundered: 0, debt: 0, stars: 0 },
-    2: { dirty: 3000, clean: 0, bitcoin: 0, laundered: 0, debt: 0, stars: 0 },
-    3: { dirty: 3000, clean: 0, bitcoin: 0, laundered: 0, debt: 0, stars: 0 },
-    4: { dirty: 3000, clean: 0, bitcoin: 0, laundered: 0, debt: 0, stars: 0 }
+    1: { name: 'Игрок 1', dirty: 3000, clean: 0, bitcoin: 0, laundered: 0, debt: 0, stars: 0 },
+    2: { name: 'Игрок 2', dirty: 3000, clean: 0, bitcoin: 0, laundered: 0, debt: 0, stars: 0 },
+    3: { name: 'Игрок 3', dirty: 3000, clean: 0, bitcoin: 0, laundered: 0, debt: 0, stars: 0 },
+    4: { name: 'Игрок 4', dirty: 3000, clean: 0, bitcoin: 0, laundered: 0, debt: 0, stars: 0 }
   }
 };
 
@@ -54,6 +54,22 @@ export function useGameState() {
 
   const updatePlayer = (playerId, field, delta) => {
     const player = state.players[playerId];
+    
+    // Для текстовых полей (имя) передаём строку, а не дельту
+    if (field === 'name') {
+      setGlobalState({
+        ...state,
+        players: {
+          ...state.players,
+          [playerId]: {
+            ...player,
+            [field]: delta  // delta здесь будет новым именем
+          }
+        }
+      });
+      return;
+    }
+    
     let newValue = (player[field] || 0) + delta;
     
     if (field === 'stars') {
@@ -74,6 +90,10 @@ export function useGameState() {
     });
   };
 
+  const updatePlayerName = (playerId, newName) => {
+    updatePlayer(playerId, 'name', newName);
+  };
+
   const resetGame = () => {
     if (confirm('Начать новую игру? Все текущие данные будут потеряны.')) {
       setGlobalState(INITIAL_STATE);
@@ -84,6 +104,7 @@ export function useGameState() {
     gameState: state,
     updateBitcoinRate,
     updatePlayer,
+    updatePlayerName,
     resetGame
   };
 }

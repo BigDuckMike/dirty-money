@@ -151,3 +151,49 @@ body {
   font-size: 0.9rem;
   color: #6b7280;
 }
+
+/* Редактируемое имя */
+.name-container {
+  background: white;
+  border-radius: 1rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.editable-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  transition: background 0.2s;
+}
+
+.editable-name:hover {
+  background: #f0f0f0;
+}
+
+.name-display {
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.edit-icon {
+  font-size: 1rem;
+  color: #9ca3af;
+  opacity: 0.6;
+}
+
+.name-input {
+  font-size: 1.3rem;
+  font-weight: 600;
+  padding: 0.3rem 0.6rem;
+  border: 2px solid #c6a43f;
+  border-radius: 0.5rem;
+  outline: none;
+  text-align: center;
+  background: white;
+}

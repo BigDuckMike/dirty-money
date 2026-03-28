@@ -12,7 +12,6 @@ export default function Home() {
     setIsClient(true);
   }, []);
 
-  // Пока не загрузился клиент, показываем заглушку
   if (!isClient) {
     return (
       <div>
@@ -27,7 +26,7 @@ export default function Home() {
         <div className="grid grid-cols-2 gap-3 mb-6">
           {[1, 2, 3, 4].map(num => (
             <button key={num} className="player-button w-full opacity-50" disabled>
-              ИГРОК {num}
+              Игрок {num}
             </button>
           ))}
         </div>
@@ -53,7 +52,7 @@ export default function Home() {
         {[1, 2, 3, 4].map(num => (
           <Link key={num} href={`/player/${num}`}>
             <button className="player-button w-full">
-              ИГРОК {num}
+              {gameState.players[num]?.name || `Игрок ${num}`}
             </button>
           </Link>
         ))}
