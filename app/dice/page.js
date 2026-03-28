@@ -70,7 +70,7 @@ export default function DicePage() {
             disabled={rolling}
             className="w-full bg-blue-600 text-white py-5 rounded-2xl text-2xl font-semibold disabled:opacity-50 active:bg-blue-700 transition"
           >
-            {rolling ? 'БРОСАЕМ...' : 'ПРОСИТЬ КУБИК'}
+            {rolling ? 'БРОСАЕМ...' : '<Бросить кубик!>'}
           </button>
         ) : (
           <button 
