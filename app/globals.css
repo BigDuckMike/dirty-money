@@ -197,3 +197,12 @@ body {
   text-align: center;
   background: white;
 }
+
+/* Дополнительная информация в счётчиках */
+.extra-info {
+  display: block;
+  font-size: 0.8rem;
+  color: #6b7280;
+  font-weight: normal;
+  margin-top: 0.25rem;
+}

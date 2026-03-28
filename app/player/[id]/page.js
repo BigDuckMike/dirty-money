@@ -5,11 +5,12 @@ import { useParams, useRouter } from 'next/navigation';
 import { useGameState } from '../../gameStore';
 import Stars from '../../components/Stars';
 
-function Counter({ label, value, step, onUpdate, unit = '' }) {
+function Counter({ label, value, step, onUpdate, unit = '', extraInfo = '' }) {
   return (
     <div className="counter">
       <div className="counter-label">
         {label}: {value} {unit}
+        {extraInfo && <span className="extra-info">{extraInfo}</span>}
       </div>
       <div className="counter-buttons">
         <button onClick={() => onUpdate(-step)}>-{step}</button>
@@ -82,6 +83,9 @@ export default function PlayerPage() {
     return <div className="text-center mt-10">Игрок не найден</div>;
   }
 
+  // Вычисляем стоимость биткоинов в USD
+  const bitcoinValueUSD = (playerData.bitcoin || 0) * bitcoinRate;
+
   if (!isClient) {
     return (
       <div>
@@ -89,6 +93,7 @@ export default function PlayerPage() {
         <div className="counter"><div className="counter-label">Имя: Игрок {playerId}</div></div>
         <div className="counter"><div className="counter-label">USD ГРЯЗНЫЕ: 3000</div></div>
         <div className="counter"><div className="counter-label">USD ЧИСТЫЕ: 0</div></div>
+        <div className="counter"><div className="counter-label">БИТКОИН: 0</div></div>
         <div className="stars-container"><div className="stars-label">ЗВЁЗДЫ ЗА РЕПУТАЦИЮ</div></div>
       </div>
     );
@@ -127,7 +132,8 @@ export default function PlayerPage() {
         value={playerData.bitcoin}
         step={1}
         onUpdate={(delta) => updatePlayer(playerId, 'bitcoin', delta)}
-        unit={`(курс: ${bitcoinRate} USD)`}
+        unit={`BTC`}
+        extraInfo={` = ${bitcoinValueUSD} USD (курс: ${bitcoinRate} USD/BTC)`}
       />
 
       <Counter
