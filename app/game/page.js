@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useGameState } from '../gameStore';
 import RobberyModal from '../components/RobberyModal';
@@ -37,6 +37,8 @@ export default function GamePage() {
     endTurn, 
     surrender 
   } = useGameState();
+  
+  const prevPlayerIdRef = useRef(null);
 
   useEffect(() => {
     setIsClient(true);
@@ -48,6 +50,19 @@ export default function GamePage() {
       router.push('/');
     }
   }, [isClient, gameState.gameStarted, gameState.currentPlayerId, router]);
+
+  // Отслеживаем смену текущего игрока после сдачи
+  useEffect(() => {
+    if (isClient && gameState.gameStarted && gameState.currentPlayerId) {
+      // Если текущий игрок изменился и это не победа, идём к кубику
+      if (prevPlayerIdRef.current !== null && 
+          prevPlayerIdRef.current !== gameState.currentPlayerId && 
+          !gameState.winner) {
+        router.push('/dice');
+      }
+      prevPlayerIdRef.current = gameState.currentPlayerId;
+    }
+  }, [gameState.currentPlayerId, gameState.winner, gameState.gameStarted, isClient, router]);
 
   // Если ещё не на клиенте или нет данных, показываем загрузку
   if (!isClient || !gameState.gameStarted || !gameState.currentPlayerId) {
@@ -84,16 +99,16 @@ export default function GamePage() {
   };
 
   const handleSurrender = () => {
-  if (confirm(`${currentPlayer.name}, вы уверены, что хотите сдаться?`)) {
-    const wasCurrentPlayer = gameState.currentPlayerId === gameState.currentPlayerId;
-    surrender(gameState.currentPlayerId);
-    
-    // Если сдался текущий игрок, переходим к кубику следующего
-    if (wasCurrentPlayer) {
-      router.push('/dice');
+    if (confirm(`${currentPlayer.name}, вы уверены, что хотите сдаться?`)) {
+      surrender(gameState.currentPlayerId);
+      // Не делаем router.push здесь — useEffect отследит смену игрока
     }
-  }
-};
+  };
+
+  const handleEndTurn = () => {
+    endTurn();
+    router.push('/dice');
+  };
 
   return (
     <div className="min-h-screen p-4 pb-24">
